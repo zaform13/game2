@@ -132,3 +132,18 @@ while True:
     
     elif ball.xcor() > 338.85 and ball.ycor() < pad_b.ycor() + 60 and ball.ycor() > pad_b.ycor() - 60: #jeśli piłka dotknie środka paletki i obszaru bliskiego od niej o 60 jednostek odbije sie
         ball.dx *= -1
+        
+    #wygrana graczy
+    if score_a == 10:
+        pen.showturtle()
+        pen.goto(0, 0) 
+        pen.write("RED WON!", align="center", font=("Courier", 60, "normal")) 
+        pen.hideturtle()
+        ball.hideturtle()
+
+    if score_b == 10:
+        pen.showturtle()
+        pen.goto(0, 0) 
+        pen.write("BLUE WON!", align="center", font=("Courier", 60, "normal")) 
+        pen.hideturtle()
+        ball.hideturtle()
