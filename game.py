@@ -1,11 +1,11 @@
 import turtle
 
 #okno
-wn = turtle.Screen() #defniuje zmieną "wn" która pojawia okno
-wn.title("Pong") #nazywa okno "Pong"
-wn.bgcolor("black") #ustawia tło na czarno
-wn.setup(width=800, height=600) #ustawia szerokość i wysokość okna
-wn.tracer(0) #wyłącza animacje żółwia
+w = turtle.Screen() #defniuje zmieną "wn" która pojawia okno
+w.title("Pong") #nazywa okno "Pong"
+w.bgcolor("black") #ustawia tło na czarno
+w.setup(width=800, height=600) #ustawia szerokość i wysokość okna
+w.tracer(0) #wyłącza animacje żółwia
 
 # punkty
 score_a = 0  #tworzy zmienną punktów paletki a
