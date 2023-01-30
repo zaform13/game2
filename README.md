@@ -1,10 +1,10 @@
 # game2
 
 Poruszanie sie platformy czerwonej
-w,s
+  w,s
 
 Poruszanie sie platformy niebieskiej
-up, down
+  up, down
 
 wyłączenie gry
-ESC
+  ESC
