@@ -1,15 +1,17 @@
 import turtle
+import time
 
 #okno
-w = turtle.Screen() #defniuje zmieną "wn" która pojawia okno
-w.title("Pong") #nazywa okno "Pong"
-w.bgcolor("black") #ustawia tło na czarno
-w.setup(width=800, height=600) #ustawia szerokość i wysokość okna
-w.tracer(0) #wyłącza animacje żółwia
+wn = turtle.Screen() #defniuje zmieną "wn" która pojawia okno
+wn.title("Pong") #nazywa okno "Pong"
+wn.bgcolor("black") #ustawia tło na czarno
+wn.setup(width=800, height=600) #ustawia szerokość i wysokość okna
+wn.tracer(0) #wyłącza animacje żółwia
 
 # punkty
 score_a = 0  #tworzy zmienną punktów paletki a
 score_b = 0  #tworzy zmienną punktów paletki b
+none= 0
 
 # paletka czerwona
 pad_a = turtle.Turtle() #tworzy nowego żółwia
@@ -18,7 +20,7 @@ pad_a.shape("square") #ustawia kształt żówia na kwadrat
 pad_a.color("red") #ustawia kolor żółwia na czerwony
 pad_a.shapesize(stretch_wid=5.1,stretch_len=0.8) #ustawia szerokość i wysokość żówia
 pad_a.penup() #podnosi pisak
-pad_a.goto(-338, -200) #ustawia paletke na danym punkcie
+pad_a.goto(-338, 0) #ustawia paletke na danym punkcie
 
 # paletka niebieska
 pad_b = turtle.Turtle() #tworzy nowego żółwia
@@ -27,7 +29,7 @@ pad_b.shape("square") #ustawia kształt żówia na kwadrat
 pad_b.color("blue") #ustawia kolor żółwia na niebieski
 pad_b.shapesize(stretch_wid=5.1,stretch_len=0.85) #ustawia szerokość i wysokość żówia
 pad_b.penup() #podnosi pisak
-pad_b.goto(338, 250) #ustawia paletke na danym punkcie
+pad_b.goto(338, 0) #ustawia paletke na danym punkcie
 
 # piłka
 ball = turtle.Turtle() #tworzy nowego żółwia
@@ -36,8 +38,8 @@ ball.shape("circle") #ustawia kształt żówia na koło
 ball.color("white") #ustawia kolor żółwia na biały
 ball.penup() #podnosi pisak
 ball.goto(0, 0) #ustawia piłke na srodku ekranu po uruchomieniu gry
-ball.dx = 0.42 #ile jednostek przesunie sie piłka na osi x jeśli wykona krok
-ball.dy = 0.42 #ile jednostek przesunie sie piłka na osi y jeśli wykona krok
+ball.dx = 0.18 #ile jednostek przesunie sie piłka na osi x jeśli wykona krok
+ball.dy = 0.09 #ile jednostek przesunie sie piłka na osi y jeśli wykona krok
 
 # tekst
 pen = turtle.Turtle() #tworzy nowego żółwia
@@ -69,14 +71,17 @@ def pad_b_down():
     y = pad_b.ycor() #przy naciśnięciu strzałki w dół czerwona platworma porusza sie w dół
     y -= 55
     pad_b.sety(y)
- 
+
+def exit():
+    turtle.Screen().bye()
 
 # Klawisze
-w.listen()
-w.onkeypress(pad_a_up, "w")
-w.onkeypress(pad_a_down, "s")
-w.onkeypress(pad_b_up, "Up")
-w.onkeypress(pad_b_down, "Down")
+wn.listen()
+wn.onkeypress(pad_a_up, "w")
+wn.onkeypress(pad_a_down, "s")
+wn.onkeypress(pad_b_up, "Up")
+wn.onkeypress(pad_b_down, "Down")
+wn.onkeypress(exit, "Escape")
 
 # pętla
 while True:
@@ -116,15 +121,21 @@ while True:
         score_a += 1
         pen.clear()
         pen.write("gracz czerwony: {}  gracz niebieski: {}".format(score_a, score_b), align="center", font=("Courier", 16, "normal"))
+        pad_a.goto(-338, 0)
+        pad_b.goto(338, 0)
         ball.goto(0, 0)
         ball.dx *= -1
+        time.sleep(0.5)
 
-    elif ball.xcor() < -350:
+    if ball.xcor() < -350:
         score_b += 1 #jeśli przekroczy 350 jednostkę w prawo gracz czerwony dostaje punkt
         pen.clear()
         pen.write("gracz czerwony: {}  gracz niebieski: {}".format(score_a, score_b), align="center", font=("Courier", 16, "normal"))
+        pad_a.goto(-338, 0)
+        pad_b.goto(338, 0)
         ball.goto(0, 0)
         ball.dx *= -1
+        time.sleep(0.5)
 
     # zderzanie sie piłki z paletką
     if ball.xcor() < -337.2 and ball.ycor() < pad_a.ycor() + 60 and ball.ycor() > pad_a.ycor() - 60: #jeśli piłka dotknie środka paletki i obszaru bliskiego od niej o 60 jednostek odbije sie
@@ -132,18 +143,22 @@ while True:
     
     elif ball.xcor() > 338.85 and ball.ycor() < pad_b.ycor() + 60 and ball.ycor() > pad_b.ycor() - 60: #jeśli piłka dotknie środka paletki i obszaru bliskiego od niej o 60 jednostek odbije sie
         ball.dx *= -1
-        
+       
     #wygrana graczy
     if score_a == 10:
         pen.showturtle()
         pen.goto(0, 0) 
-        pen.write("RED WON!", align="center", font=("Courier", 60, "normal")) 
+        pen.write("RED WON!", align="center", font=("Courier", 60, "normal"))
+        pen.goto(0, -20)
+        pen.write('Kliknij "ESC" aby wyjść z gry', align="center", font=("Courier", 25, "normal"))
         pen.hideturtle()
         ball.hideturtle()
 
     if score_b == 10:
         pen.showturtle()
         pen.goto(0, 0) 
-        pen.write("BLUE WON!", align="center", font=("Courier", 60, "normal")) 
+        pen.write("BLUE WON!", align="center", font=("Courier", 60, "normal"))
+        pen.goto(0, -20)
+        pen.write('Kliknij "ESC" aby wyjść z gry', align="center", font=("Courier", 25, "normal"))
         pen.hideturtle()
         ball.hideturtle()
