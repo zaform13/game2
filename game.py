@@ -72,11 +72,11 @@ def pad_b_down():
  
 
 # Klawisze
-wn.listen()
-wn.onkeypress(pad_a_up, "w")
-wn.onkeypress(pad_a_down, "s")
-wn.onkeypress(pad_b_up, "Up")
-wn.onkeypress(pad_b_down, "Down")
+w.listen()
+w.onkeypress(pad_a_up, "w")
+w.onkeypress(pad_a_down, "s")
+w.onkeypress(pad_b_up, "Up")
+w.onkeypress(pad_b_down, "Down")
 
 # pętla
 while True:
